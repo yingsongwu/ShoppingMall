@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+   <!-- 配置开发者模式 -->
+   <constant name="struts.devMode" value="true"></constant>
+
+
+
+	<package name="default" namespace="/" extends="json-default">
+		<action name="user_*" class="com.xiaohuteam.action.UserLoginAction" method="{1}">
+			<result name="login">/jsp/login.jsp</result>
+			<result name="loginOrder">/jsp/loginOrder.jsp</result>
+			<result name="reg">/jsp/reg.jsp</result>
+			<result name="index">/index.jsp</result>
+			<result name="check">/jsp/login.jsp</result>
+			<result name="reg">/jsp/reg.jsp</result>
+			<result name="getMsgOnCar" type="chain">type_typeToAccount</result>
+			<result name="vip">/jsp/vip.jsp</result>
+			<result name="order">/jsp/order.jsp</result>
+			<result name="contact">/jsp/contact.jsp</result>
+			<result name="help">/jsp/help.jsp</result>
+			<result name="about">/jsp/about.jsp</result>
+			<result name="userToShoppingCar" type="chain">type_typeToShoppingCar
+			</result>
+			<result name="userToShoppingCar1" type="chain">type_typeToShoppingCar1
+			</result>
+			<result name="checklogInName" type="json">
+				<param name="root">errorMeg</param>
+			</result>
+		</action>
+		<action name="goods_*" class="com.xiaohuteam.action.GoodsShowAction" method="{1}">
+			<result name="product">/jsp/product.jsp</result>
+			<result name="goodsToType" type="chain">type_product</result>
+			<result name="goodsToAccount" type="chain">car_setMsgToLogIn</result>
+			<result name="proinfo" type="chain">type_proinfo</result>
+		</action>
+		<action name="type_*" class="com.xiaohuteam.action.TypeAction" method="{1}">
+			<result name="typeToGoods" type="chain">goods_product</result>
+			<result name="typeToAccount" type="chain">goods_goodsToAccount</result>
+			<result name="product">/jsp/product.jsp</result>
+			<result name="proinfo">/jsp/proinfo.jsp</result>
+			<result name="typeToShoppingCar" type="chain">car_showGoodsOnCar
+			</result>
+			<result name="typeToShoppingCar1" type="chain">car_addGoodsOnCar
+			</result>
+			<result name="ready" type="json">
+				<param name="root">mapDefault</param>
+			</result>
+		</action>
+		<action name="car_*" class="com.xiaohuteam.action.ShoppingCarAction" method="{1}">
+			<result name="showGoodsOnCar">/jsp/order.jsp</result>
+			<result name="user" type="chain">userMsg_getUserMsg</result>
+		</action>
+		<action name="userMsg_*" class="com.xiaohuteam.action.UserAction" method="{1}">
+		    <result name="userL" type="chain">address_userA</result>
+		    <result name="vipPwd">/jsp/vipPwd.jsp</result>
+		    <result name="toUser" type="chain">user_vip</result>
+		    <result name="updatePassword" type="json">
+		     <param name="root">errorPasswordMeg</param>
+		    </result>
+		</action>
+		<action name="address_*" class="com.xiaohuteam.action.AddressAction" method="{1}">
+		    <result name="userA" type="chain">user_checkHasLogIn</result>
+		    <result name="city" type="json">
+		     <param name="root">addressCityList</param>
+		    </result>
+		    <result name="areas" type="json">
+		    <param name="root">addressAreasList</param>
+		    </result>
+		</action>  
+	</package>
+  
+  
+</struts>

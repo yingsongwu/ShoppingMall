@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+   <!-- 配置开发者模式 -->
+   <constant name="struts.devMode" value="true"> </constant>
+   
+   <package name="default"  namespace="/" extends="json-default">
+       <action name="user_*" class="com.xiaohuteam.action.UserLoginAction" method="{1}">
+       		<result name="checkLoginName" type="json">
+       			<param name="root">errorMsg</param>
+       			<!--将errorMsg传回ajax中  -->
+       		</result>
+       		<result name="index">index.html</result>
+       		<result name="login">login.jsp</result>
+       </action>
+       <action name="goods_*" class="com.xiaohuteam.action.GoodsShowAction" method="{1}">
+       		<result name="list">product_list.jsp</result>
+       		<result name="type" type="json">
+       			<param name="root">typeMap</param>
+       		</result>
+       		<result name="listShow" type="json">
+       			<param name="root">goodsList</param>
+       		</result>
+       </action>
+       		
+   </package>
+</struts>
